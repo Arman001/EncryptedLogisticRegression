@@ -15,7 +15,7 @@ def train(X, Y):
     lr = 0.001
     loss = 0.0
     print("---------------Training is Starting---------------------")
-    for epoch in range(5):
+    for epoch in range(10):
         print(f"Epoch: {epoch+1}")
         for i in range(len(X)):
             out, loss = log_obj.training(X[i], Y[i], lr, 0)
@@ -49,11 +49,19 @@ def main():
     X = X/255
     train_X = X[:60000]
     train_Y = Y[:60000]
-    test_X = X[60000:]
-    test_Y = Y[60000:]
+    test_X = X[60000:80000]
+    test_Y = Y[60000:80000]
+    unseen_X = X[80000:]
+    unseen_Y = Y[80000:]
     print(f"Classes are {class_names}")
     train(train_X,train_Y)
     test(test_X, test_Y)
+    print("Storing the data")
+    with open('unseenX.pkl', 'wb') as file:
+        pickle.dump(unseen_X, file)
+    with open('unseenY.pkl', 'wb') as file:
+        pickle.dump(unseen_Y, file)
+    print("------------------------------------------------------")
     print("Storing trained parameters")
     print("------------------------------------------------------")
     with open('log_weights.pkl', 'wb') as file:
