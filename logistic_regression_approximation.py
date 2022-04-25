@@ -11,10 +11,14 @@ from math import log
 # It is not that difficult because it straight forward just multiply with weights and then pass through sigmoid #
 
 class logistic:
-    def __init__(self, no_of_inputs):
-        self.no_of_input = no_of_inputs
-        self.weights = np.random.rand(no_of_inputs)
-        self.bias = np.random.rand(1)
+    def __init__(self, no_of_inputs, test):
+        if(test==0):
+            self.no_of_input = no_of_inputs
+            self.weights = np.random.rand(no_of_inputs)
+            self.bias = np.random.rand(1)
+        if(test==1):
+            self.weights = no_of_inputs
+
 
     def cost_function(self, y, z):
         z_sig = self.deg3_sigmoid(z)                 

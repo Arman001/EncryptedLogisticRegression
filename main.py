@@ -8,8 +8,10 @@ import numpy as np
 from Data_Preprocessing import load_data
 import pickle
 
-
-log_obj = logistic(784)
+with open('./log_weights.pkl', 'rb') as file:
+            loaded_weights = pickle.load(file)
+# log_obj = logistic(784, 0)
+log_obj = logistic(loaded_weights, 1)
 def train(X, Y):
     acc = 0
     lr = 0.001
@@ -42,6 +44,17 @@ def test(X, Y):
     print("---------------Testing has Ended----------------------")
     print("------------------------------------------------------")
 
+def Check():
+    with open('./unseenX.pkl', 'rb') as file:
+        X = pickle.load(file)
+    with open('./unseenY.pkl', 'rb') as file:
+        Y = pickle.load(file)
+    test_X = X[:100]
+    test_Y = Y[:100]
+    test(test_X, test_Y)
+
+
+    
 
 def main():
     print("Loading Data")
@@ -67,5 +80,5 @@ def main():
     with open('log_weights.pkl', 'wb') as file:
         pickle.dump(log_obj.weights, file)
 
-if __name__==main():
-    main()
+if __name__==Check():
+    Check()
